@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Loading from '../../components/loading/Loading';
 import { deleteTeamById, getTeams } from '../../services/teams';
 
-function Teams() {
+function Teams({ currentUser }) {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,7 @@ function Teams() {
 
   return (
     <>
-      <Link to="/teams/new">Add New Team</Link>
+      {currentUser && <Link to="/teams/new">Add New Team</Link>}
       {loading ? (
         <Loading />
       ) : (
@@ -38,7 +38,7 @@ function Teams() {
             <thead>
               <tr>
                 <th>Team Name</th>
-                <th>Actions</th>
+                {currentUser && <th>Actions</th>}
               </tr>
             </thead>
             <tbody>
@@ -48,20 +48,30 @@ function Teams() {
                     <Link to={`/teams/${team.id}`}>{team.name}</Link>
                   </td>
                   <td>
-                    <Link to={`/teams/${team.id}`}>
-                      <button type="button" className="btn-view">
-                        View
-                      </button>
-                    </Link>
+                    <div>
+                      {currentUser && (
+                        <>
+                          <Link to={`/teams/${team.id}`}>
+                            <button type="button" className="btn-view">
+                              View
+                            </button>
+                          </Link>
 
-                    <Link to={`/teams/${team.id}/edit`}>
-                      <button type="button" className="btn-edit">
-                        Edit
-                      </button>
-                    </Link>
-                    <button type="button" className="btn-delete" onClick={() => handleDelete(team)}>
-                      Delete
-                    </button>
+                          <Link to={`/teams/${team.id}/edit`}>
+                            <button type="button" className="btn-edit">
+                              Edit
+                            </button>
+                          </Link>
+                          <button
+                            type="button"
+                            className="btn-delete"
+                            onClick={() => handleDelete(team)}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
