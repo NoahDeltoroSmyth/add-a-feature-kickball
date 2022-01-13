@@ -34,7 +34,9 @@ function App() {
         <Route
           exact
           path="/teams"
-          render={(routeProps) => <Teams {...routeProps} user={currentUser} />}
+          render={(routeProps) => (
+            <Teams {...routeProps} user={currentUser} currentUser={currentUser} />
+          )}
         />
         {/* <Route
           exact
