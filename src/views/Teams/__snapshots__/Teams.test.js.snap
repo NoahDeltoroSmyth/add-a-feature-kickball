@@ -2,11 +2,6 @@
 
 exports[`should render a list of teams 1`] = `
 <div>
-  <a
-    href="/teams/new"
-  >
-    Add New Team
-  </a>
   <h1>
     Teams
   </h1>
